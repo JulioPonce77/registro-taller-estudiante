@@ -1,33 +1,87 @@
-# Proyecto: Registro de participantes para un taller — versión base
+# Sistema de Registro de Participantes para Taller
 
-Esta es la carpeta inicial para completar durante el repaso interactivo de Desarrollo Web. Busca cada comentario `TODO` y sigue las instrucciones del paso 19, “Proyecto final”, en `Repaso_Interactivo_Desarrollo_Web.html`.
+Aplicación web integral para la gestión, registro, persistencia y análisis visual de participantes en talleres técnicos. Proyecto desarrollado con arquitectura cliente-servidor utilizando Node.js, Express, SQLite y JavaScript Vanilla.
 
-## Requisitos
-- Node.js 18 o superior (se recomienda LTS) y Visual Studio Code.
-- Conexión a internet la primera vez para instalar Express.
+---
 
-## Ejecutar en VS Code
-1. Abre esta carpeta con **File → Open Folder**.
-2. Abre **Terminal → New Terminal**.
-3. Ejecuta `npm install`.
-4. Ejecuta `npm start`.
-5. Abre `http://localhost:3000`.
+## Características Principales
 
-### Si PowerShell bloquea npm.ps1
-Si aparece un mensaje que dice que la ejecución de scripts está deshabilitada, usa estos comandos en la misma terminal:
+- **Gestión Completa (CRUD):** Creación, consulta, edición y eliminación de inscripciones en tiempo real mediante API REST.
+- **Persistencia Relacional:** Almacenamiento seguro en base de datos SQLite integrada (`node:sqlite`) con esquema estructurado.
+- **Doble Capa de Validación:**
+  - *Frontend:* Atributos HTML5 (`required`, `type="email"`) y control de eventos para experiencia de usuario fluida.
+  - *Backend:* Saneamiento y validación estricta de cadenas y formato regex en el servidor Express.
+- **Reportes Visuales Dinámicos:** Métrica global y barras de distribución calculadas directamente mediante consultas agregadas SQL (`COUNT`, `GROUP BY`).
+- **Diseño Responsivo:** Maquetación con CSS Grid y Flexbox adaptable a computadoras de escritorio y dispositivos móviles (`@media max-width: 600px`).
 
-```powershell
-npm.cmd install
-npm.cmd start
+---
+
+## Estructura del Proyecto
+
+```text
+├── database.js          # Configuración y conexión de SQLite (node:sqlite)
+├── server.js            # Servidor Express y endpoints de la API REST
+├── package.json         # Dependencias y scripts del proyecto
+├── .gitignore           # Exclusión de node_modules y base de datos local
+├── README.md            # Documentación general y guía de ejecución
+├── bitacora.md          # Registro teórico, quizzes y defensa oral
+└── public/              # Archivos estáticos del frontend
+    ├── index.html       # Estructura semántica del formulario y reportes
+    ├── styles.css       # Estilos visuales y diseño adaptable
+    └── app.js           # Lógica asíncrona (fetch) y manipulación del DOM
 ```
 
-También puedes cambiar el perfil de la terminal de VS Code a **Command Prompt** y usar los comandos `npm install` y `npm start`.
+---
 
-El servidor y la ruta GET ya están preparados. Completa los TODO de HTML, CSS, JavaScript y la ruta POST. Los registros se guardan temporalmente en memoria y se borran al detener Node.
+## Endpoints de la API REST
 
-## API solicitada
-- `GET /api/inscripciones`: devuelve el arreglo de registros en JSON.
-- `POST /api/inscripciones`: recibe nombre, correo, teléfono, taller y horario; valida y crea una inscripción. Usa estado `201` al crear y `400` si los datos no son válidos.
+| Método | Ruta | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/api/inscripciones` | Obtiene la lista completa de registros ordenados de forma descendente. |
+| `POST` | `/api/inscripciones` | Valida y guarda una nueva inscripción en la base de datos (HTTP 201). |
+| `PUT` | `/api/inscripciones/:id` | Modifica los datos de una inscripción existente según su ID. |
+| `DELETE`| `/api/inscripciones/:id` | Remueve una inscripción del registro según su ID. |
+| `GET` | `/api/reportes/resumen` | Consulta conteos agrupados por taller, horario y modalidad para los reportes. |
 
-## Entrega en GitHub
-Sube el código fuente, `README.md` y `bitacora.md`. Completa al menos tres commits descriptivos y comparte el enlace del repositorio. No subas `node_modules/` ni archivos `.env`; ya están excluidos en `.gitignore`.
+---
+
+## Requisitos Previos
+
+- **Node.js:** Versión 22.13 o superior (cuenta con el módulo nativo `node:sqlite`).
+- **Navegador web moderno:** Chrome, Firefox, Edge o Safari.
+
+---
+
+## Instrucciones de Instalación y Ejecución
+
+1. **Clonar o descargar el repositorio:**
+   ```bash
+   git clone https://github.com/JulioPonce77/registro-taller-estudiante.git
+   cd registro-taller-estudiante
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Iniciar el servidor local:**
+   ```bash
+   npm start
+   ```
+
+4. **Abrir en el navegador:**
+   Acceder a `http://localhost:3000`.
+
+---
+
+## Evidencias de Funcionamiento
+
+### Formulario de Registro
+![Formulario](capturas/formulario.png)
+
+### Lista con Acciones (Editar / Eliminar)
+![Lista de Inscritos](capturas/lista.png)
+
+### Reportes Visuales Calculados desde la Base de Datos
+![Reportes Visuales](capturas/reportes.png)

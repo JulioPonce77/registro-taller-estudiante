@@ -3,40 +3,85 @@
 Completa una ficha por tema con tus palabras. No copies párrafos de los sitios consultados.
 
 ## HTML
-- Resumen propio (2–3 frases):
+- Resumen propio (2–3 frases): HTML es el lenguaje de marcado fundamental que define la estructura semántica y la organización de todo el contenido en la web. A través de etiquetas jerárquicas, estructura encabezados, párrafos, formularios, tablas y enlaces para que los navegadores puedan interpretarlos de forma accesible. No se encarga del diseño visual ni de la lógica de procesamiento, sino del esqueleto estructurado del documento.
 - Dos términos clave y su explicación:
+  - **Etiqueta semántica:** Elemento HTML (como `<header>`, `<main>`, `<section>` o `<article>`) cuyo nombre describe explícitamente su propósito y el tipo de contenido que alberga, facilitando la accesibilidad y el posicionamiento.
+  - **Atributo:** Parámetro configurador que se incluye en la etiqueta de apertura (por ejemplo `id`, `name`, `type` o `required`) para definir el comportamiento, identidad o restricciones del elemento.
 - Ejemplo de código explicado:
-- Pregunta que podría aparecer en el examen:
+  ```html
+  <label for="correo">Correo electrónico</label>
+  <input type="email" id="correo" name="correo" required>
+  ```
+  La etiqueta `<label>` se asocia de forma directa y accesible al campo de texto mediante el atributo `for="correo"` que coincide con `id="correo"`. Por su parte, la etiqueta `<input>` exige una sintaxis válida de correo gracias a `type="email"`, define la clave con la que viajará la información mediante `name="correo"` e impide el envío del formulario si está vacío con `required`.
+- Pregunta que podría aparecer en el examen: ¿Qué atributo conecta de forma accesible una etiqueta `<label>` con su control de formulario correspondiente?
 
 ## CSS
-- Resumen propio (2–3 frases):
+- Resumen propio (2–3 frases): CSS es el lenguaje que controla toda la presentación estética, diagramación y diseño visual de una página web. Permite separar el contenido de su apariencia, gestionando colores, tipografías, alineaciones y espacios entre elementos. Además, permite construir interfaces responsivas que se ajustan dinámicamente a pantallas de computadoras, tabletas y teléfonos móviles.
 - Dos términos clave y su explicación:
+  - **Modelo de caja (Box Model):** Estructura base donde todo elemento HTML se interpreta como una caja rectangular conformada por el contenido central, el relleno interno (*padding*), el borde (*border*) y el margen exterior (*margin*).
+  - **Media Query:** Regla condicional (`@media`) que evalúa parámetros del dispositivo (como el ancho de la ventana gráfica) para aplicar estilos visuales adaptados a cada resolución.
 - Ejemplo de código explicado:
-- Pregunta que podría aparecer en el examen:
+  ```css
+  @media (max-width: 600px) {
+    .formulario-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  ```
+  Esta regla comprueba si el ancho de la pantalla es igual o inferior a 600 píxeles. Si la condición se cumple, transforma la cuadrícula del formulario en una sola columna vertical (`1fr`), garantizando que los campos se lean con claridad en dispositivos móviles sin desbordar la pantalla.
+- Pregunta que podría aparecer en el examen: ¿Cuál es la diferencia entre `padding` y `margin` en el modelo de caja de CSS?
 
 ## JavaScript y DOM
-- Resumen propio (2–3 frases):
+- Resumen propio (2–3 frases): JavaScript es el lenguaje de programación encargado de aportar dinamismo, lógica interactiva y comportamiento a la aplicación web. Permite escuchar las acciones del usuario en tiempo real y manipular el contenido visual de la página sin necesidad de recargarla. También gestiona la comunicación asíncrona con el servidor mediante `fetch` para transferir datos en segundo plano.
 - Dos términos clave y su explicación:
+  - **DOM (Document Object Model):** Estructura de árbol creada por el navegador que representa cada elemento del documento HTML como un objeto programable desde JavaScript.
+  - **`addEventListener`:** Método que registra un escuchador sobre un elemento de la interfaz para disparar una función cuando ocurre un evento determinado (como un clic, pulsación de tecla o envío).
 - Ejemplo de código explicado:
-- Pregunta que podría aparecer en el examen:
+  ```javascript
+  formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    const datos = new FormData(formulario);
+  });
+  ```
+  El método escucha el envío del formulario. La instrucción `evento.preventDefault()` detiene la recarga automática que hace el navegador por defecto, permitiendo que la clase `FormData` extraiga los valores de los controles para procesarlos o enviarlos por la red mediante código.
+- Pregunta que podría aparecer en el examen: ¿Para qué se utiliza `preventDefault()` dentro del evento `submit` de un formulario?
 
 ## Node.js, Express y API
-- Resumen propio (2–3 frases):
+- Resumen propio (2–3 frases): Node.js es el entorno que permite ejecutar código JavaScript del lado del servidor, fuera del navegador web. Express es un framework que complementa a Node.js facilitando la creación de servidores web y APIs mediante una gestión sencilla de rutas y peticiones HTTP. Juntos permiten recibir información del cliente, aplicar validaciones y comunicarse con bases de datos para entregar respuestas estructuradas.
 - Dos términos clave y su explicación:
+  - **Middleware:** Función intermedia que inspecciona o transforma las solicitudes entrantes antes de que alcancen la ruta definitiva (como `express.json()`, que convierte el cuerpo JSON en un objeto dentro de `req.body`).
+  - **API REST:** Estilo de arquitectura cliente-servidor que organiza las funciones del sistema en recursos identificados por URLs y operados mediante verbos HTTP estándar (GET, POST, PUT, DELETE).
 - Ejemplo de ruta o solicitud explicado:
-- Pregunta que podría aparecer en el examen:
+  ```javascript
+  app.get("/api/inscripciones", (req, res) => {
+    res.json(inscripciones);
+  });
+  ```
+  Define un punto de entrada con el método HTTP GET en la dirección `/api/inscripciones`. Cuando un cliente hace una consulta a esa URL, el servidor responde entregando la lista de inscripciones en formato JSON y cierra el ciclo de comunicación con estado exitoso.
+- Pregunta que podría aparecer en el examen: ¿Qué middleware de Express debe declararse obligatoriamente para poder leer el cuerpo de una petición POST enviada en formato JSON?
 
 ## SQL
-- Resumen propio (2–3 frases):
+- Resumen propio (2–3 frases): SQL es el lenguaje estándar para administrar, consultar y manipular bases de datos relacionales estructuradas en tablas de filas y columnas. Asegura que los datos se guarden de forma permanente en el disco físico, evitando la pérdida de información al reiniciar o detener el servidor. Proporciona herramientas tanto para definir la estructura de las tablas como para gestionar sus registros.
 - Explica SELECT, INSERT, UPDATE y DELETE:
+  - **`SELECT`:** Consulta y devuelve registros guardados en una o varias tablas según los filtros solicitados.
+  - **`INSERT`:** Inserta y almacena nuevas filas de información dentro de una tabla.
+  - **`UPDATE`:** Modifica los valores de registros existentes que cumplan con una condición específica.
+  - **`DELETE`:** Remueve de manera permanente uno o varios registros de la tabla.
 - ¿Qué son una clave primaria y una clave foránea?
-- Pregunta que podría aparecer en el examen:
+  - **Clave primaria (PK):** Columna o conjunto de columnas cuyo valor es único e irrepetible, sirviendo para identificar inequívocamente cada fila de una tabla (por ejemplo, `id`).
+  - **Clave foránea (FK):** Columna que almacena la referencia a la clave primaria de otra tabla, permitiendo relacionar registros entre diferentes entidades de forma consistente.
+- Pregunta que podría aparecer en el examen: ¿Qué sentencia SQL se utiliza para consultar registros existentes dentro de una tabla?
 
 ## Git y GitHub
-- Resumen propio (2–3 frases):
+- Resumen propio (2–3 frases): Git es una herramienta local de control de versiones que registra el historial cronológico y los cambios de un proyecto mediante instantáneas llamadas commits. GitHub es una plataforma en la nube diseñada para hospedar, respaldar y compartir esos repositorios remotos. Juntos permiten rastrear modificaciones, evitar pérdidas de código y colaborar en equipo.
 - Explica add, commit y push:
+  - **`git add`:** Coloca los archivos modificados en el área de preparación (*staging area*), seleccionándolos para el siguiente guardado.
+  - **`git commit`:** Guarda de forma permanente una instantánea de los cambios preparados en el historial local del proyecto, acompañada de un mensaje explicativo.
+  - **`git push`:** Envía y sincroniza los commits guardados en la máquina local hacia el repositorio remoto alojado en GitHub.
 - Diferencia entre Git y GitHub:
-- Pregunta que podría aparecer en el examen:
+  - **Git** es el programa local instalado en la computadora que administra las versiones y el historial de cambios del código.
+  - **GitHub** es el servicio web en la nube que aloja los repositorios de Git para mantener copias de seguridad en internet y facilitar el trabajo colaborativo.
+- Pregunta que podría aparecer en el examen: ¿Cuál es el orden secuencial correcto de comandos para registrar localmente un cambio y enviarlo al servidor remoto?
 
 
 ## Actividad Trazar el recorrido
@@ -364,3 +409,45 @@ El código de estado **`201 Created`** es una respuesta HTTP de éxito que indic
 - Al aplicar `UPDATE`, el horario cambió exitosamente a `'Mañana'` para el registro con `id = 1`.
 - Al ejecutar `DELETE WHERE id = 1`, se removió la fila del taller registrado, dejando la consulta `SELECT` sin resultados.
 - **Nota del proyecto:** El servidor actual mantiene las inscripciones en memoria volátil (un arreglo de JavaScript), por lo que se reinician al apagar el servidor; SQL representa la capa de persistencia en disco.
+
+## Control de Versiones con Git: Estados y Práctica Guiada
+
+### Estados de trabajo en Git
+1. **Working tree (Árbol de trabajo):** Directorio local donde se crean, editan o eliminan los archivos.
+2. **Staging area (Área de preparación):** Espacio intermedio donde se seleccionan con `git add` los cambios listos para ser guardados.
+3. **Commit (Repositorio local):** Registro permanente e inmutable de una instantánea del proyecto.
+4. **Push (Repositorio remoto):** Sincronización y subida de los commits locales a una plataforma en la nube (como GitHub).
+
+---
+
+### Diferencia entre `add`, `commit` y `push`
+- **`git add`:** Selecciona y añade los archivos modificados a la zona de espera (*stage*).
+- **`git commit`:** Guarda definitivamente los cambios del *stage* en el historial de la máquina local junto a un mensaje explicativo.
+- **`git push`:** Transfiere los commits registrados en la máquina local hacia el repositorio remoto.
+
+---
+
+### Información que comunica un buen mensaje de commit
+- Comunica con precisión **qué** se hizo y **por qué** se hizo el cambio, usando verbos claros en modo imperativo/presente (por ejemplo, *"Agrega estructura inicial"* o *"Completa formulario y estilos"*), evitando palabras genéricas como *"arreglos"* o *"actualización"*.
+
+---
+
+### Registro del ejercicio guiado (3 commits)
+- **Verificación de `.gitignore`:** Excluye correctamente `node_modules/` y `.env` para evitar subir archivos pesados o credenciales sensibles.
+- **Historial de versiones registrado:**
+  1. `git commit -m "Agrega estructura inicial"`
+  2. `git commit -m "Completa formulario y estilos"`
+  3. `git commit -m "Implementa logica de inscripciones y rutas en API Express"`
+- **Verificación:** Ejecutado `git log --oneline` para comprobar las tres versiones registradas en el historial local.
+
+
+## Verificación de Pruebas de Persistencia y CRUD Final
+
+### Matriz de Pruebas Realizadas
+
+1. **Creación (POST):** Se registraron participantes de prueba con datos completos; el servidor respondió con estado 201 y los registros aparecieron inmediatamente en la lista y en los reportes estadísticos.
+2. **Consulta (GET):** Se verificó la lectura de la tabla mediante `/api/inscripciones`, recibiendo las filas completas ordenadas por ID descendente.
+3. **Actualización (PUT):** Se editaron los campos de taller y modalidad de un registro cargado en el formulario, confirmando la persistencia de los cambios tras pulsar "Actualizar Inscripción".
+4. **Eliminación (DELETE):** Se ejecutó el borrado de una inscripción mediante confirmación interactiva, reflejando el decremento en las métricas de reportes y la actualización de la lista.
+5. **Persistencia en Disco:** Se reinició el proceso de Node.js en la terminal (`Ctrl + C` y posterior `npm start`). Al recargar el navegador, las inscripciones guardadas se mantuvieron intactas gracias a SQLite.
+6. **Diseño Responsivo:** Se verificó la transición fluida de dos columnas a una columna única mediante herramientas de desarrollador en pantallas inferiores a 600 px.
