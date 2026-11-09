@@ -1,31 +1,380 @@
 :root {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #18253b;
-  background: #f4f6f8;
+  /* Paleta principal */
+  --primario: #0284c7;
+  --primario-hover: #0369a1;
+  --primario-suave: #e0f2fe;
+  --fondo-app: #f8fafc;
+  --superficie: #ffffff;
+  
+  /* Textos y neutros */
+  --texto-principal: #0f172a;
+  --texto-secundario: #475569;
+  --texto-tenue: #94a3b8;
+  --borde-sutil: #e2e8f0;
+  --borde-input: #cbd5e1;
+  
+  /* Colores de estado */
+  --exito-fondo: #ecfdf5;
+  --exito-texto: #065f46;
+  --exito-borde: #a7f3d0;
+  --peligro: #ef4444;
+  --peligro-hover: #dc2626;
+  --peligro-fondo: #fef2f2;
+  --peligro-texto: #991b1b;
+  --peligro-borde: #fecaca;
+  
+  /* Reportes y barras */
+  --barra-base: #e2e8f0;
+  --barra-relleno: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
+  
+  /* Sombras */
+  --sombra-tarjeta: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --sombra-flotante: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; min-height: 100vh; }
-.contenedor { width: min(100% - 2rem, 900px); margin: 0 auto; padding: 3rem 0; }
-.encabezado { margin-bottom: 1.5rem; }
-.etiqueta { color: #087e83; font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
-h1 { margin: .25rem 0; font-size: clamp(2rem, 6vw, 3.5rem); }
-.panel { margin: 1.5rem 0; border: 2px solid #087e83; border-radius: 16px; padding: 2rem; background: white; box-shadow: 0 10px 28px #18253b0d; }
-form { display: grid; gap: .65rem; }
-label { margin-top: .45rem; font-weight: 700; }
-input, select { width: 100%; min-height: 44px; border: 1px solid #aeb9c7; border-radius: 9px; padding: .65rem .75rem; background: white; font: inherit; }
-input:focus, select:focus { outline: 3px solid #bde1d8; border-color: #087e83; }
-input:hover, select:hover { border-color: #087e83; }
-button { min-height: 46px; margin-top: .5rem; border: 0; border-radius: 9px; padding: .7rem 1rem; color: white; background: #087e83; font: inherit; font-weight: 800; cursor: pointer; }
-button:hover { background: #06656b; }
-.mensaje { min-height: 1.5em; color: #06656b; font-weight: 700; }
-#lista-inscripciones { display: grid; gap: .6rem; padding-left: 1.25rem; }
-#lista-inscripciones li { padding: .6rem; border-radius: 8px; background: #eef9f6; }
-.vacio { color: #647188; background: transparent !important; }
-
-/* TODO: Agrega aquí una regla @media para mejorar la vista en teléfonos. */
-@media (max-width: 640px) {
-  .contenedor { padding: 1.5rem 0; }
-  .panel { padding: 1.25rem; border-radius: 12px; }
+/* Reset y base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--fondo-app);
+  color: var(--texto-principal);
+  line-height: 1.6;
+  padding: 2.5rem 1rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.contenedor-principal {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Encabezado */
+.encabezado {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.encabezado h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--texto-principal);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.35rem;
+}
+
+.encabezado p {
+  color: var(--texto-secundario);
+  font-size: 1.05rem;
+}
+
+/* Alertas de mensaje dinámicas */
+#mensaje {
+  display: none;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+#mensaje.exito {
+  display: block;
+  background-color: var(--exito-fondo);
+  color: var(--exito-texto);
+  border: 1px solid var(--exito-borde);
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.1);
+}
+
+#mensaje.error {
+  display: block;
+  background-color: var(--peligro-fondo);
+  color: var(--peligro-texto);
+  border: 1px solid var(--peligro-borde);
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
+}
+
+/* Contenedores de sección */
+.seccion-formulario,
+.seccion-inscritos,
+.seccion-reportes {
+  background: var(--superficie);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--borde-sutil);
+  box-shadow: var(--sombra-tarjeta);
+  transition: box-shadow 0.25s ease;
+}
+
+.seccion-formulario:hover,
+.seccion-inscritos:hover,
+.seccion-reportes:hover {
+  box-shadow: var(--sombra-flotante);
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--texto-principal);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--borde-sutil);
+  letter-spacing: -0.015em;
+}
+
+/* Formulario con sistema Grid */
+.formulario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.campo-completo {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--texto-secundario);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--borde-input);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+  color: var(--texto-principal);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:hover,
+select:hover {
+  border-color: #94a3b8;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+}
+
+/* Botones principales y acciones */
+button {
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+#btn-guardar {
+  background-color: var(--primario);
+  color: #ffffff;
+  flex: 1;
+  box-shadow: 0 2px 4px rgba(2, 132, 199, 0.25);
+}
+
+#btn-guardar:hover {
+  background-color: var(--primario-hover);
+  box-shadow: 0 4px 8px rgba(2, 132, 199, 0.35);
+}
+
+#btn-cancelar {
+  background-color: #64748b;
+  color: #ffffff;
+}
+
+#btn-cancelar:hover {
+  background-color: #475569;
+}
+
+/* Lista interactiva de participantes */
+#lista-inscripciones {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#lista-inscripciones li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: var(--fondo-app);
+  border-radius: 12px;
+  border: 1px solid var(--borde-sutil);
+  gap: 1rem;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+#lista-inscripciones li:hover {
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+#lista-inscripciones li p {
+  flex: 1;
+  font-size: 0.95rem;
+  color: var(--texto-principal);
+}
+
+.acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-editar {
+  background-color: var(--primario-suave);
+  color: var(--primario);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
+
+.btn-editar:hover {
+  background-color: #bae6fd;
+}
+
+.btn-eliminar {
+  background-color: var(--peligro-fondo);
+  color: var(--peligro);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
+
+.btn-eliminar:hover {
+  background-color: #fee2e2;
+  color: var(--peligro-hover);
+}
+
+/* Apartado de reportes visuales */
+.resumen {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.tarjeta {
+  padding: 1.25rem;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--borde-sutil);
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--texto-secundario);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cifra-destacada {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primario);
+  text-align: center;
+  margin: auto 0;
+  line-height: 1;
+}
+
+.tarjeta ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.barra-etiqueta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--texto-secundario);
+  margin-bottom: 0.3rem;
+}
+
+.barra-fondo {
+  height: 10px;
+  background: var(--barra-base);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.barra {
+  height: 100%;
+  background: var(--barra-relleno);
+  border-radius: 9999px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Adaptación a dispositivos móviles */
+@media (max-width: 600px) {
+  body {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .seccion-formulario,
+  .seccion-inscritos,
+  .seccion-reportes {
+    padding: 1.25rem;
+  }
+
+  .formulario-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resumen {
+    grid-template-columns: 1fr;
+  }
+
+  #lista-inscripciones li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .acciones {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

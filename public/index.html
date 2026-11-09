@@ -1,62 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registro al taller de Desarrollo Web</title>
-  <link rel="stylesheet" href="/styles.css">
-  <script src="/app.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Participantes para Taller</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="contenedor">
+  <main class="contenedor-principal">
     <header class="encabezado">
-      <p class="etiqueta">Universidad · Actividad de clase</p>
-      <h1>Registro al taller</h1>
-      <p>Completa tus datos para reservar un espacio.</p>
+      <h1>Registro de Participantes</h1>
+      <p>Completa el formulario para inscribirte en nuestros talleres técnicos.</p>
     </header>
 
-    <section class="panel" aria-labelledby="titulo-formulario">
-      <h2 id="titulo-formulario">Datos de inscripción</h2>
-      <form id="formulario-registro">
-        <label for="nombre">Nombre completo</label>
-        <input id="nombre" name="nombre" type="text" required minlength="2" autocomplete="name">
+    <!-- Espacio para mensajes del servidor (éxito o error) -->
+    <div id="mensaje" role="alert" aria-live="polite"></div>
 
-        <label for="correo">Correo electrónico</label>
-        <input id="correo" name="correo" type="email" required autocomplete="email" aria-describedby="ayuda-correo">
-        <small id="ayuda-correo" class="texto-ayuda">Te enviaremos la confirmación a este correo.</small>
+    <!-- Formulario con clase grid y campos requeridos -->
+    <section class="seccion-formulario">
+      <h2>Formulario de Inscripción</h2>
+      <form id="formulario-registro" class="formulario-grid" novalidate>
+        
+        <div class="campo">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required />
+        </div>
 
-        <label for="taller">Taller</label>
-        <select id="taller" name="taller" required>
-          <option value="">Selecciona un taller</option>
-          <option value="HTML y CSS">HTML y CSS</option>
-          <option value="JavaScript">JavaScript</option>
-          <option value="Node.js y Express">Node.js y Express</option>
-        </select>
+        <div class="campo">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required />
+        </div>
 
-        <!-- Campo Teléfono -->
-        <label for="telefono">Teléfono</label>
-        <input id="telefono" name="telefono" type="tel" required autocomplete="tel">
+        <div class="campo">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="Ej. 55551234" required />
+        </div>
 
-        <!-- Selector Horario -->
-        <label for="horario">Horario</label>
-        <select id="horario" name="horario" required>
-          <option value="">Selecciona un horario</option>
-          <option value="Mañana (09:00 - 12:00)">Mañana (09:00 - 12:00)</option>
-          <option value="Tarde (14:00 - 17:00)">Tarde (14:00 - 17:00)</option>
-          <option value="Noche (18:00 - 21:00)">Noche (18:00 - 21:00)</option>
-        </select>
+        <div class="campo">
+          <label for="taller">Taller</label>
+          <select id="taller" name="taller" required>
+            <option value="">Selecciona un taller</option>
+            <option value="Desarrollo Web">Desarrollo Web</option>
+            <option value="Bases de Datos SQL">Bases de Datos SQL</option>
+            <option value="Node.js y Express">Node.js y Express</option>
+            <option value="Git y Control de Versiones">Git y Control de Versiones</option>
+          </select>
+        </div>
 
-        <button type="submit">Registrar inscripción</button>
+        <div class="campo">
+          <label for="horario">Horario</label>
+          <select id="horario" name="horario" required>
+            <option value="">Selecciona un horario</option>
+            <option value="Mañana">Mañana</option>
+            <option value="Tarde">Tarde</option>
+            <option value="Noche">Noche</option>
+          </select>
+        </div>
+
+        <!-- Campo nuevo 1: Modalidad -->
+        <div class="campo">
+          <label for="modalidad">Modalidad</label>
+          <select id="modalidad" name="modalidad" required>
+            <option value="">Selecciona una opción</option>
+            <option value="Presencial">Presencial</option>
+            <option value="Virtual">Virtual</option>
+          </select>
+        </div>
+
+        <!-- Campo nuevo 2: Nivel de experiencia -->
+        <div class="campo">
+          <label for="nivel_experiencia">Experiencia previa</label>
+          <select id="nivel_experiencia" name="nivel_experiencia" required>
+            <option value="">Selecciona un nivel</option>
+            <option value="Inicial">Inicial</option>
+            <option value="Intermedio">Intermedio</option>
+            <option value="Avanzado">Avanzado</option>
+          </select>
+        </div>
+
+        <div class="campo campo-completo">
+          <button type="submit" id="btn-guardar">Guardar Inscripción</button>
+          <button type="button" id="btn-cancelar" style="display: none;">Cancelar Edición</button>
+        </div>
       </form>
-      <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
     </section>
 
-    <section class="panel" aria-labelledby="titulo-lista">
-      <h2 id="titulo-lista">Participantes inscritos</h2>
-      <ul id="lista-inscripciones" aria-live="polite">
-        <li class="vacio">Aún no hay inscripciones.</li>
-      </ul>
+    <!-- Lista interactiva de participantes registrados -->
+    <section class="seccion-inscritos">
+      <h2>Inscripciones Registradas</h2>
+      <div id="contenedor-lista">
+        <ul id="lista-inscripciones"></ul>
+      </div>
+    </section>
+
+    <!-- Reportes visuales con barras y totales -->
+    <section class="seccion-reportes">
+      <h2>Reportes y Estadísticas</h2>
+      <div class="resumen">
+        <article class="tarjeta">
+          <h3>Total de inscripciones</h3>
+          <p id="total" class="cifra-destacada">0</p>
+        </article>
+
+        <article class="tarjeta">
+          <h3>Inscripciones por taller</h3>
+          <ul id="reporte-talleres"></ul>
+        </article>
+
+        <article class="tarjeta">
+          <h3>Inscripciones por horario</h3>
+          <ul id="reporte-horarios"></ul>
+        </article>
+
+        <article class="tarjeta">
+          <h3>Inscripciones por modalidad</h3>
+          <ul id="reporte-modalidades"></ul>
+        </article>
+      </div>
     </section>
   </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
